@@ -16,7 +16,7 @@ class Trainer():
         train_running_loss = 0.0
         train_running_correct = 0
         counter = 0
-        for i, data in tqdm(enumerate(data_loader), total=len(data_loader)):
+        for i, data in tqdm(enumerate(data_loader.train_dataloader), total=len(data_loader.train_dataloader)):
             counter += 1
             image, labels = data
             image = image.to(self.device)
@@ -29,6 +29,9 @@ class Trainer():
             train_running_loss += loss.item()
             # calculate the accuracy
             _, preds = torch.max(outputs.data, 1)
+            print("Example output: ")
+            print(data_loader.dataset.classes[labels[0].item()])
+            print(data_loader.dataset.classes[preds[0]])
             train_running_correct += (preds == labels).sum().item()
             # backpropagation
             loss.backward()
@@ -37,7 +40,7 @@ class Trainer():
         
         # loss and accuracy for the complete epoch
         epoch_loss = train_running_loss / counter
-        epoch_acc = 100. * (train_running_correct / len(data_loader.dataset))
+        epoch_acc = 100. * (train_running_correct / len(data_loader.train_dataloader.dataset))
         print("Epoch Loss: ", epoch_loss, "Epoch Accuracy", epoch_acc)
         return epoch_loss, epoch_acc
     
@@ -47,7 +50,7 @@ class Trainer():
         counter = 0
         model.eval()
         with torch.no_grad():
-            for i, vdata in tqdm(enumerate(data_loader), total=len(data_loader)):
+            for i, vdata in tqdm(enumerate(data_loader.test_dataloader), total=len(data_loader.test_dataloader)):
                 counter += 1
                 vinputs, vlabels = vdata
                 vinputs = vinputs.to(self.device)
@@ -58,5 +61,5 @@ class Trainer():
                 vloss = self.loss_fn(voutputs, vlabels)
                 running_vloss += vloss.item()
         avg_vloss = running_vloss / counter
-        avg_acc = 100 * running_vcorrect / len(data_loader.dataset)
+        avg_acc = 100 * running_vcorrect / len(data_loader.test_dataloader.dataset)
         print("Val Epoch Loss: ", avg_vloss, "Val Epoch Accuracy", avg_acc)
