@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 class_index = json.load(open('classes_dict.json'))
 nn_model = mobilenet_v2(num_classes=1382)
-nn_model.load_state_dict(torch.load('mushroom_id.pt'))
+nn_model.load_state_dict(torch.load('mushroom_id.pt', map_location=torch.device('cpu')))
 # Apply softmax activation to get a probability / "confidence"
 nn_model.classifier = torch.nn.Sequential(
     nn_model.classifier,
