@@ -7,10 +7,31 @@
     <link href="{{url_for('static', filename='styles/style.css')}}" rel="stylesheet"/>
 </head>
 <body>
-    <h1>Identify Mushroom</h1>
+    <img src="/static/mushroom_logo.png" alt="Image of a cartoon amanita muscaria" width="150rem" height="150rem"/>
+    <h1>Mushroom Identifier</h1>
+    <h2> Disclaimer: This is a basic web app intended for EDUCATIONAL PURPOSES ONLY. Predictions 
+        may be inaccurate, always consult a reputable guide if intending to consume mushrooms. Measures of confidence directly
+        refer to the confidence of the model and should not be understood as the probability of a correct id. </h2>
     <form action="/predict" method="post" enctype="multipart/form-data">
-        <input type="file" name="mushroom" accept="image/*"/>
-        <button type="submit"> Submit </button>
+    <div class="horz_center">
+    <input type="file" name="mushroom" accept="image/*" onchange="loadFile(event)">
+        <div class="horz_center">
+            <img id="image" width="200rem" height="200rem"/>
+        </div>
+        <div class="horz_center">
+            <script>
+                var loadFile = function(event) {
+                    var image= document.getElementById('image');
+                    image.src = URL.createObjectURL(event.target.files[0]);
+                    image.onload = function() {
+                    URL.revokeObjectURL(image.src)
+                    }
+                };
+            </script>
+        </div>
+        <div class="horz_center">
+            <button type="submit"> Submit </button>
+        </div>
     </form>
 </body>
 </html>
