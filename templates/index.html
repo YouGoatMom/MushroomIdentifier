@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Identify Mushroom </title>
+    <link href="{{url_for('static', filename='styles/style.css')}}" rel="stylesheet"/>
+</head>
+<body>
+    <h1>Identify Mushroom</h1>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <input type="file" name="mushroom" accept="image/*"/>
+        <button type="submit"> Submit </button>
+    </form>
+</body>
+</html>

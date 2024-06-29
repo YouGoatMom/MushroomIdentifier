@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Identify Mushroom </title>
+    <link href="{{url_for('static', filename='styles/style.css')}}" rel="stylesheet"/>
+</head>
+<body>
+    <h1>Results</h1>
+    <table>
+        <tr>
+          <th>Prediction</th>
+          <th>Confidence (%)</th>
+        </tr>
+        <tr>
+            <td>{{pred_1}}</td>
+            <td>{{conf_1}}</td>
+        </tr>
+        <tr>
+            <td>{{pred_2}}</td>
+            <td>{{conf_2}}</td>
+        </tr>
+        <tr>
+            <td>{{pred_3}}</td>
+            <td>{{conf_3}}</td>
+        </tr>
+        <tr>
+            <td>{{pred_4}}</td>
+            <td>{{conf_4}}</td>
+        </tr>
+        <tr>
+            <td>{{pred_5}}</td>
+            <td>{{conf_5}}</td>
+        </tr>
+      </table>
+    <form action="/">
+        <button type="submit"> Submit Another? </button>
+    </form>
+</body>
+</html>
